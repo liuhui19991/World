@@ -1,7 +1,9 @@
-package com.liuhui.world;
+package com.liuhui.world.ui.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.liuhui.world.R;
 
 public class MainActivity extends AppCompatActivity {
 
