@@ -20,7 +20,6 @@ public class BaseApplication extends Application {
 //        LeakCanary.install(this);
         this.registerActivityLifecycleCallbacks(ActivityStack.getInstance());//注册侧滑关闭页面功能
         mContext = this;
-        OkGo.init(this);
         OkGo.getInstance().debug("OkGo");//开启调试模式
     }
 
