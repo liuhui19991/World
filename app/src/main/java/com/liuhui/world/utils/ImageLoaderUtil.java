@@ -39,7 +39,7 @@ public class ImageLoaderUtil {
                 .diskCacheStrategy(DiskCacheStrategy.RESULT)//缓存转换后的资源
 //                .placeholder(defaultImage)//在图片加载完成以前显示占位符
                 .crossFade()//淡入淡出动画,默认是调用的,可以传毫秒值减慢/加快,动画事件
-                .dontAnimate()//不展示淡入淡出效果,直接显示图片
+//                .dontAnimate()//不展示淡入淡出效果,直接显示图片
                 .centerCrop()//用上这句就可以填充控件
                 .into(view)
                 .getSize(new SizeReadyCallback() {
@@ -71,7 +71,7 @@ public class ImageLoaderUtil {
         Glide.with(context)
                 .load(path)
                 .priority(Priority.LOW)//设置图片加载的优先级
-                .skipMemoryCache(false)
+                .skipMemoryCache(false)//设置是不跳过内存缓存
                 .diskCacheStrategy(DiskCacheStrategy.RESULT)//缓存类型
                 .crossFade()//淡入淡出动画,默认是调用的,可以传毫秒值减慢/加快,动画事件
 //                    .dontAnimate()//不展示淡入淡出效果,直接显示图片

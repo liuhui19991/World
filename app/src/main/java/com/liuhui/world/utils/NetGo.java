@@ -11,7 +11,32 @@ import com.yanzhenjie.nohttp.rest.Response;
  */
 
 public class NetGo {
-    public static void request(String url, final ResponseListener listener){
+    private static NetGo mNetGo = new NetGo();
+
+    private NetGo() {
+
+    }
+
+    public static NetGo getInstance() {
+        return mNetGo;
+    }
+
+    /**
+     * 这种方式同样利用了classloder的机制来保证初始化instance时只有一个线程，它跟上面方式不同的是（很细微的差别）：
+     * 上面只要NetGo类被装载了，那么mNetGo就会被实例化（没有达到lazy loading效果），而这种方式是NetGo类被装载了，
+     * INSTANCE不一定被初始化。因为NetGoHolder类没有被主动使用，只有显示通过调用getInstance方法时，才会显示装载NetGoHolder类，
+     * 从而实例化instance。如果实例化instance很消耗资源，我想让他延迟加载，另外一方面，我不希望在NetGo类加载时就实例化，
+     * 因为我不能确保NetGo类还可能在其他的地方被主动使用从而被加载，那么这个时候实例化INSTANCE显然是不合适的。
+     * 这个时候，这种方式就显得很合理。
+     * private static class NetGoHolder {
+     * private static final NetGo INSTANCE = new NetGo();
+     * }
+     * private NetGo (){}
+     * public static final NetGo getInstance() {
+     * return NetGoHolder.INSTANCE;
+     * }
+     */
+    public NetGo request(String url, final ResponseListener listener) {
         Request<String> stringRequest = NoHttp.createStringRequest(url);
         RequestQueue requestQueue = NoHttp.newRequestQueue();
         requestQueue.add(0, stringRequest, new OnResponseListener<String>() {
@@ -35,5 +60,6 @@ public class NetGo {
 
             }
         });
+        return this;
     }
 }

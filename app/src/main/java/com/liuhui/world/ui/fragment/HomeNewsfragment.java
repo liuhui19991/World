@@ -27,7 +27,6 @@ public class HomeNewsFragment extends BaseFragment<HomeNewsView, HomeNewsPresent
     @Override
     protected void initView() {
         mPresenter.setView(this);
-        mPresenter.requestMessage(mContext);
     }
 
     @Override
