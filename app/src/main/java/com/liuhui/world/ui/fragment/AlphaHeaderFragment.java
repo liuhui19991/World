@@ -42,13 +42,12 @@ public class AlphaHeaderFragment extends BaseFragment {
     Banner mViewPagerHeader;
     public List<HeaderViewPagerFragment> fragments;//必须要用继承headerviewpagerfragment的类
     private List<String> networkImages;
-    private String[] images = {"http://img2.imgtn.bdimg.com/it/u=3093785514,1341050958&fm=21&gp=0.jpg",
-            "http://img2.3lian.com/2014/f2/37/d/40.jpg",
-            "http://d.3987.com/sqmy_131219/001.jpg",
-            "http://img2.3lian.com/2014/f2/37/d/39.jpg",
-            "http://www.8kmm.com/UploadFiles/2012/8/201208140920132659.jpg",
-            "http://f.hiphotos.baidu.com/image/h%3D200/sign=1478eb74d5a20cf45990f9df460b4b0c/d058ccbf6c81800a5422e5fdb43533fa838b4779.jpg",
-            "http://f.hiphotos.baidu.com/image/pic/item/09fa513d269759ee50f1971ab6fb43166c22dfba.jpg"
+    private String[] images = {"http://b176.photo.store.qq.com/psb?/aee30598-967e-4d33-8757-effc627de551/aKlFyR4JrkjtH.2QyqaKv1KOdnylCF1w7wtP9UkE55w!/b/dL4t72g4KQAA&bo=cgSAAkAGhAMFChw!&rf=viewer_4",
+            "http://b238.photo.store.qq.com/psb?/V109A2Ju34laAj/2dKqL02wHg3jHKdQkbnoLCJHxxIrYlnPahpgLzLHoy0!/b/dHYx640XDAAA&bo=cQSAAhoLQAYBCo0!&rf=viewer_4",
+            "http://b167.photo.store.qq.com/psb?/aee30598-967e-4d33-8757-effc627de551/.EBlHpXxfUhcXoUTBNYOGlIqoZt5qA3qp7xbXepMHOY!/b/dP9ak2NIJgAA&bo=cgSAAgAAAAABANM!&rf=viewer_4",
+            "http://b237.photo.store.qq.com/psb?/V109A2Ju1fPzgK/5h0OxDPfiW4fGQo7rNFfATjlgdhxu8uUO09K6PI2sj4!/b/dOYRTo3mKAAA&bo=cQSAAkAGhQMBCho!&rf=viewer_4",
+            "http://b168.photo.store.qq.com/psb?/aee30598-967e-4d33-8757-effc627de551/DFVXazavD02owQAONwONlb37MVgLbFch2dj22x*vcGE!/b/dI5mKmRrKAAA&bo=cgSAAgAAAAABANM!&rf=viewer_4",
+            "http://a2.qpic.cn/psb?/V109A2Ju2TWhRw/hBkVjpCSxEcTXrOFA3nHVcKTDgVsV2zQ.7pdgtv8qcY!/b/dFoqWGgOKQAA&bo=ngJ4AQAAAAAFAMY!&rf=viewer_4",
     };
 
     @Override
@@ -88,7 +87,7 @@ public class AlphaHeaderFragment extends BaseFragment {
 
     /**
      * 内容页的适配器
-    */
+     */
     private class ContentAdapter extends FragmentPagerAdapter {
 
         public ContentAdapter(FragmentManager fm) {
@@ -116,7 +115,7 @@ public class AlphaHeaderFragment extends BaseFragment {
     public class GlideImageLoader extends ImageLoader {
         @Override
         public void displayImage(Context context, Object path, ImageView imageView) {
-            ImageLoaderUtil.display(imageView,path);
+            ImageLoaderUtil.display(imageView, path);
         }
     }
 }

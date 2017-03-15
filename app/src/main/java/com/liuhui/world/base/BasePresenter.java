@@ -16,8 +16,7 @@ public abstract class BasePresenter<V> {
         requestMessage();//加载数据
     }
 
-    protected void requestMessage() {
-    }
+    protected abstract void requestMessage() ;
 
 
     public void dettach() {

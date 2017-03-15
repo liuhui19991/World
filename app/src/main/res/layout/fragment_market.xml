@@ -12,9 +12,9 @@
     <android.support.design.widget.TabLayout
         android:id="@+id/tabs"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="?actionBarSize"
         android:layout_marginTop="@dimen/toolbar_padding_top"
         app:tabGravity="fill"
-        app:tabMode="scrollable"/>
+        app:tabMode="fixed"/>
 
 </RelativeLayout>

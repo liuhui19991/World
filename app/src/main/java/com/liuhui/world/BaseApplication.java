@@ -3,7 +3,8 @@ package com.liuhui.world;
 import android.app.Application;
 
 import com.liuhui.world.swipeback.ActivityStack;
-import com.lzy.okgo.OkGo;
+import com.squareup.leakcanary.LeakCanary;
+import com.yanzhenjie.nohttp.NoHttp;
 
 
 /**
@@ -16,11 +17,11 @@ public class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-//        if (LeakCanary.isInAnalyzerProcess(this)) return;
-//        LeakCanary.install(this);
+        if (LeakCanary.isInAnalyzerProcess(this)) return;
+        LeakCanary.install(this);
         this.registerActivityLifecycleCallbacks(ActivityStack.getInstance());//注册侧滑关闭页面功能
         mContext = this;
-        OkGo.getInstance().debug("OkGo");//开启调试模式
+        NoHttp.initialize(this);
     }
 
     public static BaseApplication getInstance() {
