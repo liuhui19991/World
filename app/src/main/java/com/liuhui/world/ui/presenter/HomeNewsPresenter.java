@@ -19,9 +19,9 @@ public class HomeNewsPresenter extends BasePresenter<HomeNewsView> {
     @Override
     protected void requestMessage() {
         String url = Url.ZHIHU_HISTORY + getDate();
-        NetGo.getInstance().request(url, new ResponseListener() {
+        NetGo.getInstance().request(1, url, new ResponseListener() {
             @Override
-            public void success(String response) {
+            public void success(int what, String response) {
                 mView.showData(GsonUtil.json2Bean(response, NewsListModel.class));
             }
         });

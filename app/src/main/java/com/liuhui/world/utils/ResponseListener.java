@@ -5,5 +5,5 @@ package com.liuhui.world.utils;
  */
 
 public interface ResponseListener {
-    void success(String response);
+    void success(int what, String response);
 }

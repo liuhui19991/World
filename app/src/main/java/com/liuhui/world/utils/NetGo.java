@@ -25,7 +25,7 @@ public class NetGo {
      * 这种方式同样利用了classloder的机制来保证初始化instance时只有一个线程，它跟上面方式不同的是（很细微的差别）：
      * 上面只要NetGo类被装载了，那么mNetGo就会被实例化（没有达到lazy loading效果），而这种方式是NetGo类被装载了，
      * INSTANCE不一定被初始化。因为NetGoHolder类没有被主动使用，只有显示通过调用getInstance方法时，才会显示装载NetGoHolder类，
-     * 从而实例化instance。如果实例化instance很消耗资源，我想让他延迟加载，另外一方面，我不希望在NetGo类加载时就实例化，
+     * 从而实例化INSTANCE。如果实例化INSTANCE很消耗资源，我想让他延迟加载，另外一方面，我不希望在NetGo类加载时就实例化，
      * 因为我不能确保NetGo类还可能在其他的地方被主动使用从而被加载，那么这个时候实例化INSTANCE显然是不合适的。
      * 这个时候，这种方式就显得很合理。
      * private static class NetGoHolder {
@@ -36,10 +36,17 @@ public class NetGo {
      * return NetGoHolder.INSTANCE;
      * }
      */
-    public NetGo request(String url, final ResponseListener listener) {
+    /**
+     * 网络请求
+     * @param what 用于区分请求
+     * @param url 请求地址
+     * @param listener 回调监听
+     * @return
+     */
+    public NetGo request(int what, String url, final ResponseListener listener) {
         Request<String> stringRequest = NoHttp.createStringRequest(url);
         RequestQueue requestQueue = NoHttp.newRequestQueue();
-        requestQueue.add(0, stringRequest, new OnResponseListener<String>() {
+        requestQueue.add(what, stringRequest, new OnResponseListener<String>() {
             @Override
             public void onStart(int what) {
 
@@ -47,7 +54,7 @@ public class NetGo {
 
             @Override
             public void onSucceed(int what, Response<String> response) {
-                listener.success(response.get());
+                listener.success(what, response.get());
             }
 
             @Override
