@@ -35,14 +35,14 @@ public class MainFragment extends BaseFragment {
     protected void initView() {
         initBottomNavigationBar();
         List<Fragment> list = new ArrayList<>();
-        list.add(new HomePagerFragment());
-        list.add(new HomePagerFragment());
+        list.add(new MarketFragment());
         list.add(new HomePagerFragment());
         list.add(new HomePagerFragment());
         //Fragment中嵌套使用Fragment一定要使用getChildFragmentManager(),否则会有问题
         FragmentPagerAdapter fpa = new BaseFragmentPagerAdapter(getChildFragmentManager(), list);
         mViewPager.setOffscreenPageLimit(list.size());
         mViewPager.setAdapter(fpa);
+
     }
 
     @Override
@@ -67,18 +67,17 @@ public class MainFragment extends BaseFragment {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
+                mBottomNavigationBar.selectTab(position);
             }
         });
     }
 
     private void initBottomNavigationBar() {
         mBottomNavigationBar
-                .addItem(new BottomNavigationItem(R.mipmap.ic_favorite, "首页").setActiveColorResource(R.color.one))
-                .addItem(new BottomNavigationItem(R.mipmap.ic_gavel, "Two").setActiveColorResource(R.color.two))//通过这里的set可以设置底部栏的颜色
-                .addItem(new BottomNavigationItem(R.mipmap.ic_grade, "Three").setActiveColorResource(R.color.three))
-                .addItem(new BottomNavigationItem(R.mipmap.ic_group_work, "工具").setActiveColorResource(R.color.four))
+                .addItem(new BottomNavigationItem(R.mipmap.ic_favorite, "首页").setActiveColorResource(R.color.main_color))
+                .addItem(new BottomNavigationItem(R.mipmap.ic_gavel, "新闻").setActiveColorResource(R.color.main_color))//通过这里的set可以设置底部栏的颜色
+                .addItem(new BottomNavigationItem(R.mipmap.ic_grade, "工具").setActiveColorResource(R.color.main_color))
                 .setMode(BottomNavigationBar.MODE_FIXED)//0不带字,1带字
-                .setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_RIPPLE)
                 .initialise();
     }
 
