@@ -40,7 +40,8 @@
         android:paddingTop="@dimen/toolbar_padding_top"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         >
-
+        <!--上面除了使用和fragment_market中tablayout相同的paddingtop值外,也可以采用设置一个view动态设置高度为状态栏高度
+        然后和顶部栏一样做透明动画-->
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
