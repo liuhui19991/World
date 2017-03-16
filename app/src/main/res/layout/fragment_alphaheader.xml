@@ -20,6 +20,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 app:delay_time="3000"
+                app:indicator_height="6dp"
+                app:indicator_margin="3dp"
+                app:indicator_width="6dp"
                 app:scroll_time="1200"/>  <!--app:scroll_time 设置轮播图切换所需要的时间-->
         </RelativeLayout>
 
@@ -33,6 +36,7 @@
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:paddingTop="@dimen/toolbar_padding_top"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         >
