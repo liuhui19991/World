@@ -1,5 +1,12 @@
 package com.liuhui.world.utils;
 
+import android.app.Activity;
+import android.app.Dialog;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.LinearLayout;
+
+import com.liuhui.world.R;
 import com.yanzhenjie.nohttp.NoHttp;
 import com.yanzhenjie.nohttp.rest.OnResponseListener;
 import com.yanzhenjie.nohttp.rest.Request;
@@ -11,10 +18,11 @@ import com.yanzhenjie.nohttp.rest.Response;
  */
 
 public class NetGo {
+    private Dialog mLoadingDialog;
     private static NetGo mNetGo = new NetGo();
+    private Activity mActivity;
 
     private NetGo() {
-
     }
 
     public static NetGo getInstance() {
@@ -38,18 +46,22 @@ public class NetGo {
      */
     /**
      * 网络请求
-     * @param what 用于区分请求
-     * @param url 请求地址
+     *
+     * @param what     用于区分请求
+     * @param url      请求地址
      * @param listener 回调监听
      * @return
      */
-    public NetGo request(int what, String url, final ResponseListener listener) {
+    public NetGo request(int what, String url, Activity activity, final ResponseListener listener) {
+        mActivity = activity;
         Request<String> stringRequest = NoHttp.createStringRequest(url);
         RequestQueue requestQueue = NoHttp.newRequestQueue();
         requestQueue.add(what, stringRequest, new OnResponseListener<String>() {
             @Override
             public void onStart(int what) {
-
+                createLoading();
+                if (mLoadingDialog.isShowing() && !mLoadingDialog.isShowing()) return;
+                mLoadingDialog.show();
             }
 
             @Override
@@ -64,9 +76,21 @@ public class NetGo {
 
             @Override
             public void onFinish(int what) {
-
+                if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
+                    mLoadingDialog.cancel();
+                }
             }
         });
         return this;
+    }
+
+    private void createLoading() {
+        View view = LayoutInflater.from(mActivity).inflate(R.layout.loading_dialog, null);
+        if (mLoadingDialog != null) return;
+        mLoadingDialog = new Dialog(mActivity, R.style.CustomProgressDialog);
+        mLoadingDialog.setCancelable(true);
+        mLoadingDialog.setCanceledOnTouchOutside(false);
+        mLoadingDialog.setContentView(view, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+
     }
 }

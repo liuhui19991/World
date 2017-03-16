@@ -1,5 +1,7 @@
 package com.liuhui.world.ui.presenter;
 
+import android.app.Activity;
+
 import com.liuhui.world.base.BasePresenter;
 import com.liuhui.world.ui.model.NewsListModel;
 import com.liuhui.world.ui.view.HomeNewsView;
@@ -17,9 +19,9 @@ import java.util.Calendar;
 public class HomeNewsPresenter extends BasePresenter<HomeNewsView> {
 
     @Override
-    protected void requestMessage() {
+    protected void requestMessage(Activity activity) {
         String url = Url.ZHIHU_HISTORY + getDate();
-        NetGo.getInstance().request(1, url, new ResponseListener() {
+        NetGo.getInstance().request(1, url, activity, new ResponseListener() {
             @Override
             public void success(int what, String response) {
                 mView.showData(GsonUtil.json2Bean(response, NewsListModel.class));

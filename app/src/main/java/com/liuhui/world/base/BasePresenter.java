@@ -11,12 +11,12 @@ public abstract class BasePresenter<V> {
     public Activity mContext;
     public boolean mShow;//是否展示等待对话框
 
-    public void setView(V view) {
+    public void setView(V view, Activity activity) {
         mView = view;
-        requestMessage();//加载数据
+        requestMessage(activity);//加载数据
     }
 
-    protected abstract void requestMessage() ;
+    protected abstract void requestMessage(Activity activity);
 
 
     public void dettach() {
