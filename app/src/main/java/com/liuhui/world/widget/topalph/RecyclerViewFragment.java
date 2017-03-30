@@ -84,7 +84,7 @@ public class RecyclerViewFragment extends HeaderViewPagerFragment {
 
             public void bindData(int position) {
                 itemView.setGravity(Gravity.CENTER);
-                itemView.setTextColor(Color.WHITE);
+                itemView.setTextColor(Color.GREEN);
                 ViewGroup.LayoutParams params = new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 300);
                 itemView.setLayoutParams(params);
                 itemView.setText(strings.get(position));
