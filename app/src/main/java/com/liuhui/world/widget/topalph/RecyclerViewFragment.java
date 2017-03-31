@@ -1,5 +1,6 @@
 package com.liuhui.world.widget.topalph;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,21 +13,24 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.liuhui.world.R;
 import com.liuhui.world.adapter.RecommendAdapter;
+import com.liuhui.world.ui.activity.DetalZhiHuActivity;
 import com.liuhui.world.ui.model.NewsListModel;
 import com.liuhui.world.utils.GsonUtil;
-import com.liuhui.world.utils.LogUtil;
 import com.liuhui.world.utils.NetGo;
 import com.liuhui.world.utils.ResponseListener;
 import com.liuhui.world.utils.Url;
 import com.liuhui.world.widget.CustomAnimation;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class RecyclerViewFragment extends HeaderViewPagerFragment implements BaseQuickAdapter.RequestLoadMoreListener {
 
     private RecyclerView mRecyclerView;
     private RecommendAdapter mRecommendAdapter;
     private int mCount = 0;
+    private List<NewsListModel.StoriesBean> mData = new ArrayList<>();
 
     public static RecyclerViewFragment newInstance() {
         return new RecyclerViewFragment();
@@ -53,6 +57,7 @@ public class RecyclerViewFragment extends HeaderViewPagerFragment implements Bas
             public void success(int what, String response) {
                 if (mCount++ == 5) mRecommendAdapter.loadMoreEnd();
                 else mRecommendAdapter.loadMoreComplete();
+                mData.addAll(GsonUtil.json2Bean(response, NewsListModel.class).getStories());
                 mRecommendAdapter.addData(GsonUtil.json2Bean(response, NewsListModel.class).getStories());
             }
         });
@@ -63,7 +68,9 @@ public class RecyclerViewFragment extends HeaderViewPagerFragment implements Bas
         mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                LogUtil.e("位置" + position);
+                Intent intent = new Intent(getActivity(), DetalZhiHuActivity.class);
+                intent.putExtra(Url.ZHIHU_ID, String.valueOf(mData.get(position).getId()));
+                startActivity(intent);
             }
         });
     }

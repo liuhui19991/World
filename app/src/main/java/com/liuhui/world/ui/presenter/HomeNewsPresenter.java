@@ -19,7 +19,7 @@ import java.util.Calendar;
 public class HomeNewsPresenter extends BasePresenter<HomeNewsView> {
 
     @Override
-    protected void requestMessage(Activity activity) {
+    protected void requestMessage(Activity activity, String requesturl) {
         String url = Url.ZHIHU_HISTORY + getDate();
         NetGo.getInstance().request(1, url, activity, new ResponseListener() {
             @Override

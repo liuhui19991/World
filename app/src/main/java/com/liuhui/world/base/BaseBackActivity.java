@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 
+import com.liuhui.world.R;
 import com.liuhui.world.swipeback.SwipeBackActivity;
 
 import butterknife.ButterKnife;
@@ -63,8 +64,8 @@ public abstract class BaseBackActivity<V, P extends BasePresenter<V>> extends Sw
      * @param title 传null可以显示应用名,传""就什么都不显示
      * @param back  true则显示返回键
      */
-    protected void initToolBar(String title, boolean back,int toolbar) {
-        mToolbar = findView(toolbar);
+    protected void initToolBar(String title, boolean back) {
+        mToolbar = findView(R.id.toolbar);
         mToolbar.setTitle(title);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(back);

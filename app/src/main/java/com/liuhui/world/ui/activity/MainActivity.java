@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.liuhui.world.R;
 import com.liuhui.world.base.BaseActivity;
@@ -45,5 +46,18 @@ public class MainActivity extends BaseActivity {
     @Override
     protected BasePresenter initPresent() {
         return null;
+    }
+
+    long firstExitTime;
+
+    @Override
+    public void onBackPressed() {
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - firstExitTime < 2000) {
+            System.exit(0);
+        } else {
+            firstExitTime = currentTime;
+            Toast.makeText(mContext, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+        }
     }
 }

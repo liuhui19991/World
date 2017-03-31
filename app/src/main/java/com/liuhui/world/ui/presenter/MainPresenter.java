@@ -13,7 +13,7 @@ import com.liuhui.world.base.BaseView;
 public class MainPresenter extends BasePresenter<BaseView> {
 
     @Override
-    protected void requestMessage(Activity activity) {
+    protected void requestMessage(Activity activity, String requesturl) {
 
     }
 }
