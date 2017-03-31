@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.liuhui.world.swipeback.ActivityStack;
 import com.squareup.leakcanary.LeakCanary;
+import com.yanzhenjie.nohttp.Logger;
 import com.yanzhenjie.nohttp.NoHttp;
 
 
@@ -22,6 +23,7 @@ public class BaseApplication extends Application {
         this.registerActivityLifecycleCallbacks(ActivityStack.getInstance());//注册侧滑关闭页面功能
         mContext = this;
         NoHttp.initialize(this);
+        Logger.setDebug(true);
     }
 
     public static BaseApplication getInstance() {

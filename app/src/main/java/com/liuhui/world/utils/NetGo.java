@@ -44,15 +44,20 @@ public class NetGo {
      * return NetGoHolder.INSTANCE;
      * }
      */
+    public NetGo request(int what, String url, Activity activity, final ResponseListener listener) {
+        return request(what, url, activity, false, listener);
+    }
+
     /**
      * 网络请求
      *
-     * @param what     用于区分请求
-     * @param url      请求地址
-     * @param listener 回调监听
+     * @param hideWaiting true is hideWaiting
+     * @param what        用于区分请求
+     * @param url         请求地址
+     * @param listener    回调监听
      * @return
      */
-    public NetGo request(int what, String url, Activity activity, final ResponseListener listener) {
+    public NetGo request(int what, String url, Activity activity, final boolean hideWaiting, final ResponseListener listener) {
         mActivity = activity;
         Request<String> stringRequest = NoHttp.createStringRequest(url);
         RequestQueue requestQueue = NoHttp.newRequestQueue();
@@ -61,6 +66,7 @@ public class NetGo {
             public void onStart(int what) {
                 createLoading();
                 if (mLoadingDialog == null && !mLoadingDialog.isShowing()) return;
+                if (hideWaiting) return;
                 mLoadingDialog.show();
             }
 

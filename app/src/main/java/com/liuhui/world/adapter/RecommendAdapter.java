@@ -1,9 +1,12 @@
 package com.liuhui.world.adapter;
 
+import android.widget.ImageView;
+
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.liuhui.world.R;
 import com.liuhui.world.ui.model.NewsListModel;
+import com.liuhui.world.utils.ImageLoaderUtil;
 
 import java.util.List;
 
@@ -21,9 +24,7 @@ public class RecommendAdapter extends BaseQuickAdapter<NewsListModel.StoriesBean
 
     @Override
     protected void convert(BaseViewHolder baseViewHolder, NewsListModel.StoriesBean resourceBean) {
-            baseViewHolder.setText(R.id.item_recommend_textauthor, "")
-                    .setText(R.id.item_recommend_texttitle, resourceBean.getTitle())
-                    .addOnClickListener(R.id.item_recommend_texttitle);
-//            ImageLoaderUtil.displayRound((ImageView) baseViewHolder.getView(R.id.item_recommend_image), resourceBean.getImages());
+        baseViewHolder.setText(R.id.item_recommend_texttitle, resourceBean.getTitle());
+        ImageLoaderUtil.displayRound((ImageView) baseViewHolder.getView(R.id.item_recommend_image), resourceBean.getImages().get(0));
     }
 }
