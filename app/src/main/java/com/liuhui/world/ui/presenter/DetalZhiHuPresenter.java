@@ -1,7 +1,5 @@
 package com.liuhui.world.ui.presenter;
 
-import android.app.Activity;
-
 import com.liuhui.world.base.BasePresenter;
 import com.liuhui.world.ui.model.DetalZhiHuModel;
 import com.liuhui.world.ui.view.DetalZhiHuView;
@@ -17,9 +15,9 @@ import com.liuhui.world.utils.Url;
 public class DetalZhiHuPresenter extends BasePresenter<DetalZhiHuView> {
 
     @Override
-    protected void requestMessage(Activity activity, String requesturl) {
+    protected void requestMessage(String requesturl) {
         String url = Url.ZHIHU_NEWS + requesturl;
-        NetGo.getInstance().request(0, url, activity, new ResponseListener() {
+        NetGo.getInstance().request(0, url, mContext, new ResponseListener() {
             @Override
             public void success(int what, String response) {
                 mView.showData(GsonUtil.json2Bean(response, DetalZhiHuModel.class));

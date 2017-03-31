@@ -13,10 +13,11 @@ public abstract class BasePresenter<V> {
 
     public void setView(V view, Activity activity, String url) {
         mView = view;
-        requestMessage(activity, url);//加载数据
+        mContext = activity;
+        requestMessage(url);//加载数据
     }
 
-    protected abstract void requestMessage(Activity activity, String requesturl);
+    protected abstract void requestMessage(String requesturl);
 
 
     public void dettach() {
