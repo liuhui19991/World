@@ -60,7 +60,7 @@ public class NetGo {
             @Override
             public void onStart(int what) {
                 createLoading();
-                if (mLoadingDialog.isShowing() && !mLoadingDialog.isShowing()) return;
+                if (mLoadingDialog == null && !mLoadingDialog.isShowing()) return;
                 mLoadingDialog.show();
             }
 

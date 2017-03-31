@@ -75,6 +75,7 @@ public class HeaderScrollHelper {
             if (layoutManager instanceof LinearLayoutManager) {
                 int firstVisibleItemPosition = ((LinearLayoutManager) layoutManager).findFirstVisibleItemPosition();
                 View childAt = recyclerView.getChildAt(0);
+                //此处要注意当填充的条目设置了margin值的时候对应的childAt.getTop()的值就得对应换算了
                 if (childAt == null || (firstVisibleItemPosition == 0 && childAt.getTop() == 0)) {
                     return true;
                 }

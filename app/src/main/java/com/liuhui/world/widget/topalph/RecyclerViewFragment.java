@@ -1,26 +1,26 @@
 package com.liuhui.world.widget.topalph;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.liuhui.world.R;
+import com.liuhui.world.adapter.RecommendAdapter;
+import com.liuhui.world.ui.model.DataEvent;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 public class RecyclerViewFragment extends HeaderViewPagerFragment {
 
     private RecyclerView mRecyclerView;
+    private RecommendAdapter mRecommendAdapter;
 
     public static RecyclerViewFragment newInstance() {
         return new RecyclerViewFragment();
@@ -30,10 +30,16 @@ public class RecyclerViewFragment extends HeaderViewPagerFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_homenews, container, false);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.homenews_recyclerview);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        mRecyclerView.setLayoutManager(linearLayoutManager);
-        mRecyclerView.setAdapter(new RecyclerAdapter());//在这里不能使用BaseRecyclerViewAdapterHelper
+        initAdapter();
         return view;
+    }
+
+    private void initAdapter() {
+        mRecommendAdapter = new RecommendAdapter(R.layout.item_recommend, null);
+        mRecommendAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecommendAdapter.isFirstOnly(false);
+        mRecyclerView.setAdapter(mRecommendAdapter);
     }
 
     @Override
@@ -41,55 +47,18 @@ public class RecyclerViewFragment extends HeaderViewPagerFragment {
         return mRecyclerView;
     }
 
-    public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.SimpleViewHolder> {
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(DataEvent event) {mRecommendAdapter.addData(event.mStoriesBeen);}
 
-        private List<String> strings;
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
 
-        public RecyclerAdapter() {
-            strings = new ArrayList<>();
-            for (int i = 0; i < 40; i++) {
-                strings.add("条目" + i);
-            }
-        }
-
-        @Override
-        public SimpleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new SimpleViewHolder(View.inflate(getActivity(), android.R.layout.simple_list_item_1, null));
-        }
-
-        @Override
-        public void onBindViewHolder(SimpleViewHolder holder, int position) {
-            holder.bindData(position);
-        }
-
-        @Override
-        public int getItemCount() {
-            return strings.size();
-        }
-
-        public class SimpleViewHolder extends RecyclerView.ViewHolder {
-            TextView itemView;
-            int position;
-
-            public SimpleViewHolder(View itemView) {
-                super(itemView);
-                this.itemView = (TextView) itemView;
-                itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast.makeText(v.getContext(), "点击RecycleView item" + position, Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-
-            public void bindData(int position) {
-                itemView.setGravity(Gravity.CENTER);
-                itemView.setTextColor(Color.GREEN);
-                ViewGroup.LayoutParams params = new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 300);
-                itemView.setLayoutParams(params);
-                itemView.setText(strings.get(position));
-//                itemView.setBackgroundColor(Utils.generateBeautifulColor());
-            }
-        }
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
     }
 }

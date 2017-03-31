@@ -10,13 +10,18 @@ import android.widget.ImageView;
 
 import com.liuhui.world.R;
 import com.liuhui.world.base.BaseFragment;
-import com.liuhui.world.base.BasePresenter;
+import com.liuhui.world.ui.model.DataEvent;
+import com.liuhui.world.ui.model.NewsListModel;
+import com.liuhui.world.ui.presenter.HomeNewsPresenter;
+import com.liuhui.world.ui.view.HomeNewsView;
 import com.liuhui.world.utils.ImageLoaderUtil;
 import com.liuhui.world.widget.topalph.HeaderViewPager;
 import com.liuhui.world.widget.topalph.HeaderViewPagerFragment;
 import com.liuhui.world.widget.topalph.RecyclerViewFragment;
 import com.youth.banner.Banner;
 import com.youth.banner.loader.ImageLoader;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,7 +36,7 @@ import static com.liuhui.world.R.id.scrollableLayout;
  * Created by liuhui on 2017/3/6.
  */
 
-public class AlphaHeaderFragment extends BaseFragment {
+public class AlphaHeaderFragment extends BaseFragment<HomeNewsView, HomeNewsPresenter> implements HomeNewsView {
     @BindView(scrollableLayout)
     HeaderViewPager mHeaderViewPager;
     @BindView(R.id.appbar)
@@ -78,11 +83,17 @@ public class AlphaHeaderFragment extends BaseFragment {
                 mAppBarLayout.setAlpha(alpha);
             }
         });
+        mPresenter.setView(this, mContext);
     }
 
     @Override
-    public BasePresenter initPresenter() {
-        return null;
+    public HomeNewsPresenter initPresenter() {
+        return new HomeNewsPresenter();
+    }
+
+    @Override
+    public void showData(NewsListModel newsListModel) {
+        EventBus.getDefault().post(new DataEvent(newsListModel.getStories()));
     }
 
     /**
