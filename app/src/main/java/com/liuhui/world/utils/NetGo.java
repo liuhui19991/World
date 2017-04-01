@@ -44,6 +44,9 @@ public class NetGo {
      * return NetGoHolder.INSTANCE;
      * }
      */
+    /**
+     * 显示等待对话框
+     */
     public NetGo request(int what, String url, Activity activity, final ResponseListener listener) {
         return request(what, url, activity, false, listener);
     }
@@ -65,7 +68,7 @@ public class NetGo {
             @Override
             public void onStart(int what) {
                 createLoading();
-                if (mLoadingDialog == null && !mLoadingDialog.isShowing()) return;
+                if (mLoadingDialog != null && mLoadingDialog.isShowing()) return;
                 if (hideWaiting) return;
                 mLoadingDialog.show();
             }
@@ -84,6 +87,8 @@ public class NetGo {
             public void onFinish(int what) {
                 if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
                     mLoadingDialog.cancel();
+                    mLoadingDialog = null;
+                    mActivity = null;
                 }
             }
         });
@@ -91,12 +96,11 @@ public class NetGo {
     }
 
     private void createLoading() {
-        View view = LayoutInflater.from(mActivity).inflate(R.layout.loading_dialog, null);
         if (mLoadingDialog != null) return;
+        View view = LayoutInflater.from(mActivity).inflate(R.layout.loading_dialog, null);
         mLoadingDialog = new Dialog(mActivity, R.style.CustomProgressDialog);
         mLoadingDialog.setCancelable(true);
         mLoadingDialog.setCanceledOnTouchOutside(false);
         mLoadingDialog.setContentView(view, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
-
     }
 }

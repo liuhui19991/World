@@ -1,6 +1,7 @@
 package com.liuhui.world.base;
 
 import android.app.Activity;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -35,7 +36,7 @@ public abstract class BaseBackActivity<V, P extends BasePresenter<V>> extends Sw
         initWindow(true, 0);
         initView();
         initListener();
-//        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);// 设置竖屏
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);// 设置竖屏
     }
 
     protected void initListener() {
