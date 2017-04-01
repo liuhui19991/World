@@ -86,7 +86,7 @@ public class DetailZhiHuActivity extends BaseBackActivity<DetalZhiHuView, Detail
             mWebView.removeAllViews();
             mWebView.destroy();
         }
-
+        mPresenter.stopRequest();
     }
 
     class MyWebViewClient extends WebViewClient {
@@ -201,7 +201,6 @@ public class DetailZhiHuActivity extends BaseBackActivity<DetalZhiHuView, Detail
 
     /**
      * 获取消失的动画
-     *
      */
     private AnimationSet getDismissAnim(Context context) {
         AnimationSet dismiss = new AnimationSet(context, null);

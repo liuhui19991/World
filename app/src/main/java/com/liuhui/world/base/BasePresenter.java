@@ -20,7 +20,7 @@ public abstract class BasePresenter<V> {
     protected abstract void requestMessage(String requesturl);
 
 
-    public void dettach() {
+    public void stopRequest() {
 
     }
 }

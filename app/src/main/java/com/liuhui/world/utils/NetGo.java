@@ -21,6 +21,7 @@ public class NetGo {
     private Dialog mLoadingDialog;
     private static NetGo mNetGo = new NetGo();
     private Activity mActivity;
+    private RequestQueue mRequestQueue;
 
     private NetGo() {
     }
@@ -63,8 +64,9 @@ public class NetGo {
     public NetGo request(int what, String url, Activity activity, final boolean hideWaiting, final ResponseListener listener) {
         mActivity = activity;
         Request<String> stringRequest = NoHttp.createStringRequest(url);
-        RequestQueue requestQueue = NoHttp.newRequestQueue();
-        requestQueue.add(what, stringRequest, new OnResponseListener<String>() {
+        mRequestQueue = NoHttp.newRequestQueue(1);
+        mRequestQueue.add(what, stringRequest, new OnResponseListener<String>() {
+            //此处回调函数持有了activity的引用,所以当activity销毁时候应该停止队列,否则会造成内存泄漏
             @Override
             public void onStart(int what) {
                 createLoading();
@@ -88,11 +90,14 @@ public class NetGo {
                 if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
                     mLoadingDialog.cancel();
                     mLoadingDialog = null;
-                    mActivity = null;
                 }
             }
         });
         return this;
+    }
+
+    public void stopRequest(){
+        mRequestQueue.stop();
     }
 
     private void createLoading() {

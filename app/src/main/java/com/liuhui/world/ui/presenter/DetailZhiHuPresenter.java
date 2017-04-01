@@ -24,4 +24,9 @@ public class DetailZhiHuPresenter extends BasePresenter<DetalZhiHuView> {
             }
         });
     }
+
+    @Override
+    public void stopRequest() {
+        NetGo.getInstance().stopRequest();
+    }
 }
