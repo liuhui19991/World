@@ -118,7 +118,7 @@ public class DetailZhiHuActivity extends BaseBackActivity<DetalZhiHuView, Detail
                 mProgressBar.setCurProgress(100, 1000, new WebViewHorizontalPb.OnEndListener() {
                     @Override
                     public void onEnd() {
-                        finishOperation(true);
+                        finishOperation();
                         isContinue = false;
                     }
                 });
@@ -170,7 +170,7 @@ public class DetailZhiHuActivity extends BaseBackActivity<DetalZhiHuView, Detail
     /**
      * 结束进行的操作
      */
-    private void finishOperation(boolean flag) {
+    private void finishOperation() {
         //最后加载设置100进度
         mProgressBar.setNormalProgress(100);
 
@@ -202,8 +202,6 @@ public class DetailZhiHuActivity extends BaseBackActivity<DetalZhiHuView, Detail
     /**
      * 获取消失的动画
      *
-     * @param context
-     * @return
      */
     private AnimationSet getDismissAnim(Context context) {
         AnimationSet dismiss = new AnimationSet(context, null);
