@@ -1,17 +1,19 @@
 package com.liuhui.world.ui.activity;
 
 import android.annotation.SuppressLint;
-import android.graphics.Bitmap;
+import android.content.Context;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ProgressBar;
 
 import com.liuhui.world.R;
 import com.liuhui.world.base.BaseBackActivity;
@@ -19,6 +21,7 @@ import com.liuhui.world.ui.model.DetailZhiHuModel;
 import com.liuhui.world.ui.presenter.DetailZhiHuPresenter;
 import com.liuhui.world.ui.view.DetalZhiHuView;
 import com.liuhui.world.utils.Url;
+import com.liuhui.world.widget.WebViewHorizontalPb;
 
 import butterknife.BindView;
 
@@ -29,7 +32,8 @@ public class DetailZhiHuActivity extends BaseBackActivity<DetalZhiHuView, Detail
     @BindView(R.id.webview)
     WebView mWebView;
     @BindView(R.id.pb)
-    ProgressBar mProgressBar;
+    WebViewHorizontalPb mProgressBar;
+    private boolean isContinue = false;
 
     @Override
     protected int getLayoutId() {
@@ -69,7 +73,7 @@ public class DetailZhiHuActivity extends BaseBackActivity<DetalZhiHuView, Detail
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(mWebView != null) {
+        if (mWebView != null) {
             ViewParent parent = mWebView.getParent();
             if (parent != null) {
                 ((ViewGroup) parent).removeView(mWebView);
@@ -86,24 +90,11 @@ public class DetailZhiHuActivity extends BaseBackActivity<DetalZhiHuView, Detail
     }
 
     class MyWebViewClient extends WebViewClient {
-        //开始加载网页
-        @Override
-        public void onPageStarted(WebView view, String url, Bitmap favicon) {
-            super.onPageStarted(view, url, favicon);
-        }
-
         //所有链接跳转会走此方法
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
 //            view.loadUrl(url);//这句话的意思是在跳转view时强制在当前view中加载
             return false;
-        }
-
-        //网页加载结束
-        @Override
-        public void onPageFinished(WebView view, String url) {
-            super.onPageFinished(view, url);
-            mProgressBar.setVisibility(View.GONE);
         }
     }
 
@@ -111,14 +102,30 @@ public class DetailZhiHuActivity extends BaseBackActivity<DetalZhiHuView, Detail
         @Override
         public void onProgressChanged(WebView view, int newProgress) {
             super.onProgressChanged(view, newProgress);
-            //进度发生变化 newprogress
-            if (newProgress == 100) {
-                mProgressBar.setVisibility(View.INVISIBLE);
-            } else {
-                if (View.INVISIBLE == mProgressBar.getVisibility()) {
-                    mProgressBar.setVisibility(View.VISIBLE);
+            //如果没有网络直接跳出方法
+//            if (没有网络))return;
+
+            //如果进度条隐藏则让它显示
+            if (View.INVISIBLE == mProgressBar.getVisibility()) {
+                mProgressBar.setVisibility(View.VISIBLE);
+            }
+            //大于80的进度的时候,放慢速度加载,否则交给自己加载
+            if (newProgress >= 80) {
+                //拦截webView自己的处理方式
+                if (isContinue) {
+                    return;
                 }
-                mProgressBar.setProgress(newProgress);
+                mProgressBar.setCurProgress(100, 1000, new WebViewHorizontalPb.OnEndListener() {
+                    @Override
+                    public void onEnd() {
+                        finishOperation(true);
+                        isContinue = false;
+                    }
+                });
+
+                isContinue = true;
+            } else {
+                mProgressBar.setNormalProgress(newProgress);
             }
         }
 
@@ -132,7 +139,6 @@ public class DetailZhiHuActivity extends BaseBackActivity<DetalZhiHuView, Detail
 
     /**
      * 重写这个方法就能在toolbar上面出现菜单按钮
-     *
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -161,4 +167,49 @@ public class DetailZhiHuActivity extends BaseBackActivity<DetalZhiHuView, Detail
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * 结束进行的操作
+     */
+    private void finishOperation(boolean flag) {
+        //最后加载设置100进度
+        mProgressBar.setNormalProgress(100);
+
+        hideProgressWithAnim();
+    }
+
+    /**
+     * 隐藏加载对话框
+     */
+    private void hideProgressWithAnim() {
+        AnimationSet animation = getDismissAnim(mContext);
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                mProgressBar.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+        });
+        mProgressBar.startAnimation(animation);
+    }
+
+    /**
+     * 获取消失的动画
+     *
+     * @param context
+     * @return
+     */
+    private AnimationSet getDismissAnim(Context context) {
+        AnimationSet dismiss = new AnimationSet(context, null);
+        AlphaAnimation alpha = new AlphaAnimation(1.0f, 0.0f);
+        alpha.setDuration(1000);
+        dismiss.addAnimation(alpha);
+        return dismiss;
+    }
 }

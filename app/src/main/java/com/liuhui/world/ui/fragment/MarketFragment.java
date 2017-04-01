@@ -11,14 +11,16 @@ import com.liuhui.world.base.BasePresenter;
 import butterknife.BindView;
 
 /**
+ * 首页的fragment
  * Created by liuhui on 2017/3/15.
  */
 
-public class MarketFragment extends BaseFragment{
+public class MarketFragment extends BaseFragment {
     @BindView(R.id.vp_market)
     ViewPager mViewPager;
     @BindView(R.id.tabs)
     TabLayout mTabLayout;
+
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_market;
