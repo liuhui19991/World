@@ -27,6 +27,11 @@ public class HomeNewsPresenter extends BasePresenter<HomeNewsView> {
         });
     }
 
+    @Override
+    public void stopRequest() {
+
+    }
+
     private String getDate() {
         Calendar ca = Calendar.getInstance();
         String year = String.valueOf(ca.get(Calendar.YEAR));//获取年份

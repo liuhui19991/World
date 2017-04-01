@@ -20,7 +20,5 @@ public abstract class BasePresenter<V> {
     protected abstract void requestMessage(String requesturl);
 
 
-    public void stopRequest() {
-
-    }
+    public abstract void stopRequest();
 }

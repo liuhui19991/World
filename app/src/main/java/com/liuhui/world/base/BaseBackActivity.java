@@ -89,4 +89,10 @@ public abstract class BaseBackActivity<V, P extends BasePresenter<V>> extends Sw
         }
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    protected void onDestroy() {
+        mPresenter.stopRequest();
+        super.onDestroy();
+    }
 }

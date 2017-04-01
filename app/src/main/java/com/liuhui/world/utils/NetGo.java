@@ -97,6 +97,7 @@ public class NetGo {
     }
 
     public void stopRequest(){
+        mRequestQueue.cancelAll();
         mRequestQueue.stop();
     }
 

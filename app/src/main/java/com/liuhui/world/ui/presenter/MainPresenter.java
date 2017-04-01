@@ -14,4 +14,9 @@ public class MainPresenter extends BasePresenter<BaseView> {
     protected void requestMessage(String requesturl) {
 
     }
+
+    @Override
+    public void stopRequest() {
+
+    }
 }

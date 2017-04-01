@@ -86,7 +86,6 @@ public class DetailZhiHuActivity extends BaseBackActivity<DetalZhiHuView, Detail
             mWebView.removeAllViews();
             mWebView.destroy();
         }
-        mPresenter.stopRequest();
     }
 
     class MyWebViewClient extends WebViewClient {
