@@ -1,5 +1,6 @@
 package com.liuhui.world.ui.activity;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,8 +15,8 @@ import android.widget.ProgressBar;
 
 import com.liuhui.world.R;
 import com.liuhui.world.base.BaseBackActivity;
-import com.liuhui.world.ui.model.DetalZhiHuModel;
-import com.liuhui.world.ui.presenter.DetalZhiHuPresenter;
+import com.liuhui.world.ui.model.DetailZhiHuModel;
+import com.liuhui.world.ui.presenter.DetailZhiHuPresenter;
 import com.liuhui.world.ui.view.DetalZhiHuView;
 import com.liuhui.world.utils.Url;
 
@@ -24,12 +25,11 @@ import butterknife.BindView;
 /**
  * Created by liuhui on 2017/3/31.
  */
-public class DetalZhiHuActivity extends BaseBackActivity<DetalZhiHuView, DetalZhiHuPresenter> implements DetalZhiHuView {
+public class DetailZhiHuActivity extends BaseBackActivity<DetalZhiHuView, DetailZhiHuPresenter> implements DetalZhiHuView {
     @BindView(R.id.webview)
     WebView mWebView;
     @BindView(R.id.pb)
     ProgressBar mProgressBar;
-    private String mId;
 
     @Override
     protected int getLayoutId() {
@@ -38,11 +38,12 @@ public class DetalZhiHuActivity extends BaseBackActivity<DetalZhiHuView, DetalZh
 
     @Override
     protected void initView() {
-        mId = getIntent().getStringExtra(Url.ZHIHU_ID);
+        String id = getIntent().getStringExtra(Url.ZHIHU_ID);
         initWebView();
-        mPresenter.setView(this, mContext, mId);
+        mPresenter.setView(this, mContext, id);
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     private void initWebView() {
         WebSettings settings = mWebView.getSettings();
         settings.setUseWideViewPort(true);// 支持双击缩放(wap网页不支持)
@@ -56,13 +57,13 @@ public class DetalZhiHuActivity extends BaseBackActivity<DetalZhiHuView, DetalZh
     }
 
     @Override
-    protected DetalZhiHuPresenter initPresent() {
-        return new DetalZhiHuPresenter();
+    protected DetailZhiHuPresenter initPresent() {
+        return new DetailZhiHuPresenter();
     }
 
     @Override
-    public void showData(DetalZhiHuModel detalZhiHuModel) {
-        mWebView.loadUrl(detalZhiHuModel.getShare_url());
+    public void showData(DetailZhiHuModel detailZhiHuModel) {
+        mWebView.loadUrl(detailZhiHuModel.getShare_url());
     }
 
     @Override
@@ -77,7 +78,7 @@ public class DetalZhiHuActivity extends BaseBackActivity<DetalZhiHuView, DetalZh
             // 退出时调用此方法，移除绑定的服务，否则某些特定系统会报错
             mWebView.getSettings().setJavaScriptEnabled(false);
             mWebView.clearHistory();
-            mWebView.clearView();
+            mWebView.loadUrl("about:blank");
             mWebView.removeAllViews();
             mWebView.destroy();
         }

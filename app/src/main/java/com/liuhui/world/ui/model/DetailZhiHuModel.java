@@ -6,7 +6,7 @@ import java.util.List;
  * Created by liuhui on 2017/3/31.
  */
 
-public class DetalZhiHuModel extends DataModel {
+public class DetailZhiHuModel extends DataModel {
 
     /**
      * image_source : 《帕特森》

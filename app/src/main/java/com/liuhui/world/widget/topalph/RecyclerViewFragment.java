@@ -13,7 +13,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.liuhui.world.R;
 import com.liuhui.world.adapter.RecommendAdapter;
-import com.liuhui.world.ui.activity.DetalZhiHuActivity;
+import com.liuhui.world.ui.activity.DetailZhiHuActivity;
 import com.liuhui.world.ui.model.NewsListModel;
 import com.liuhui.world.utils.GsonUtil;
 import com.liuhui.world.utils.NetGo;
@@ -68,7 +68,7 @@ public class RecyclerViewFragment extends HeaderViewPagerFragment implements Bas
         mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Intent intent = new Intent(getActivity(), DetalZhiHuActivity.class);
+                Intent intent = new Intent(getActivity(), DetailZhiHuActivity.class);
                 intent.putExtra(Url.ZHIHU_ID, String.valueOf(mData.get(position).getId()));
                 startActivity(intent);
             }

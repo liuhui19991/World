@@ -41,7 +41,6 @@ public class AlphaHeaderFragment extends BaseFragment {
     @BindView(R.id.banner)
     Banner mViewPagerHeader;
     public List<HeaderViewPagerFragment> fragments;//必须要用继承headerviewpagerfragment的类
-    private List<String> networkImages;
     private String[] images = {"http://b176.photo.store.qq.com/psb?/aee30598-967e-4d33-8757-effc627de551/aKlFyR4JrkjtH.2QyqaKv1KOdnylCF1w7wtP9UkE55w!/b/dL4t72g4KQAA&bo=cgSAAkAGhAMFChw!&rf=viewer_4",
             "http://b238.photo.store.qq.com/psb?/V109A2Ju34laAj/2dKqL02wHg3jHKdQkbnoLCJHxxIrYlnPahpgLzLHoy0!/b/dHYx640XDAAA&bo=cQSAAhoLQAYBCo0!&rf=viewer_4",
             "http://b167.photo.store.qq.com/psb?/aee30598-967e-4d33-8757-effc627de551/.EBlHpXxfUhcXoUTBNYOGlIqoZt5qA3qp7xbXepMHOY!/b/dP9ak2NIJgAA&bo=cgSAAgAAAAABANM!&rf=viewer_4",
@@ -57,7 +56,7 @@ public class AlphaHeaderFragment extends BaseFragment {
 
     @Override
     public void initView() {
-        networkImages = Arrays.asList(images);
+        List<String> networkImages = Arrays.asList(images);
         //设置图片加载器
         mViewPagerHeader.setImageLoader(new GlideImageLoader())
                 //设置图片集合
@@ -91,11 +90,11 @@ public class AlphaHeaderFragment extends BaseFragment {
      */
     private class ContentAdapter extends FragmentPagerAdapter {
 
-        public ContentAdapter(FragmentManager fm) {
+        ContentAdapter(FragmentManager fm) {
             super(fm);
         }
 
-        public String[] titles = new String[]{"ScrollView", "ListView", "GridView", "RecyclerView", "WebView"};
+        String[] titles = new String[]{"ScrollView", "ListView", "GridView", "RecyclerView", "WebView"};
 
         @Override
         public CharSequence getPageTitle(int position) {
