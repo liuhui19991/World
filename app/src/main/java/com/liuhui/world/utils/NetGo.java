@@ -90,6 +90,7 @@ public class NetGo {
                 if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
                     mLoadingDialog.cancel();
                     mLoadingDialog = null;
+                    mActivity = null;
                 }
             }
         });
