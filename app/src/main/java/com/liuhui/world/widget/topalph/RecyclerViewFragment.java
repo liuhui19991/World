@@ -100,11 +100,11 @@ public class RecyclerViewFragment extends HeaderViewPagerFragment implements Bas
         Calendar ca = Calendar.getInstance();
         int data = ca.get(Calendar.DATE);
         int mon = ca.get(Calendar.MONTH) + 1;
-        if (data == 1) {
+        String year = String.valueOf(ca.get(Calendar.YEAR));//获取年份
+        if (data - count == 0) {
             data = 26;
             mon = mon - 1;
         }
-        String year = String.valueOf(ca.get(Calendar.YEAR));//获取年份
         String month = String.valueOf(mon);//获取月份 需要+1才为今天的月份
         day = String.valueOf(data - count);//获取日
         if (month.length() == 1) month = 0 + month;
