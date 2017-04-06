@@ -1,23 +1,22 @@
 package com.liuhui.world.ui.activity;
 
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.liuhui.world.R;
 import com.liuhui.world.base.BaseActivity;
 import com.liuhui.world.base.BasePresenter;
 import com.liuhui.world.ui.fragment.MainFragment;
-import com.liuhui.world.utils.DensityUtil;
 
 import butterknife.BindView;
 
 public class MainActivity extends BaseActivity {
     @BindView(R.id.fl_left)
-    View mFragmentLeft;
+    NavigationView mNavigationView;
     @BindView(R.id.drawerlayout)
     DrawerLayout mDrawerLayout;
     private Fragment mMainFragment;
@@ -31,9 +30,16 @@ public class MainActivity extends BaseActivity {
     protected void initView() {
         initWindow();
 //        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);//设置drawlerlayout不可以滑动打开
-        ViewGroup.LayoutParams layoutParams = mFragmentLeft.getLayoutParams();
-        layoutParams.width = DensityUtil.getDisplayWidth(this) * 4 / 5;
-
+       /* ViewGroup.LayoutParams layoutParams = mFragmentLeft.getLayoutParams();
+        layoutParams.width = DensityUtil.getDisplayWidh(this) * 4 / 5;*/
+        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                item.setChecked(true);
+                mDrawerLayout.closeDrawers();
+                return true;
+            }
+        });
         FragmentManager fm = getSupportFragmentManager();
         if (mMainFragment == null) {
             mMainFragment = new MainFragment();

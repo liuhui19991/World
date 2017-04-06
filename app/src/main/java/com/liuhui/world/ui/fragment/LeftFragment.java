@@ -13,7 +13,7 @@ public class LeftFragment extends BaseFragment {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_left;
+        return R.layout.header_left;
     }
 
     @Override
