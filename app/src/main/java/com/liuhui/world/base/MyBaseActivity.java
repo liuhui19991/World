@@ -51,5 +51,4 @@ public abstract class MyBaseActivity extends Activity implements View.OnClickLis
     protected void initListener() {
 
     }
-
 }
