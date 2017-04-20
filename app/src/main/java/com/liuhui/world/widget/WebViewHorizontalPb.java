@@ -14,6 +14,9 @@ import android.view.animation.LinearInterpolator;
 import com.liuhui.world.R;
 import com.liuhui.world.utils.DensityUtil;
 
+/**
+ * WebView横向进度条
+ */
 public class WebViewHorizontalPb extends View {
 
     private Context mContext;

@@ -38,7 +38,7 @@ public class RecyclerViewFragment extends HeaderViewPagerFragment implements Bas
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_homenews, container, false);
+        View view = inflater.inflate(R.layout.recycler_view, container, false);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.homenews_recyclerview);
         initAdapter();
         initListener();
