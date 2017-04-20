@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:id="@+id/root_layout"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/appbar"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingTop="88dp">
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/mobile_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:counterEnabled="true"
+                app:counterMaxLength="11"
+                app:counterOverflowTextAppearance="@style/TextAppearance.AppCompat"
+                app:counterTextAppearance="@style/TextAppearance.AppCompat">
+
+                <EditText
+                    android:id="@+id/username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@android:drawable/stat_notify_sdcard_usb"
+                    android:drawablePadding="20dp"
+                    android:hint="请输入帐号"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/password_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:counterEnabled="true"
+                app:passwordToggleEnabled="true">
+
+                <EditText
+                    android:id="@+id/password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@android:drawable/ic_secure"
+                    android:hint="请输入密码"
+                    android:inputType="textPassword"
+                    android:maxLength="16"
+                    android:paddingLeft="50dp"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="20dp">
+
+                <CheckBox
+                    android:id="@+id/remember_password"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="记住密码"/>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/login_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:foreground="?selectableItemBackground"
+                android:text="登录"/>
+
+            <TextView
+                android:id="@+id/forget_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginRight="18dp"
+                android:text="忘记密码"
+                android:textColor="#000"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:src="@mipmap/ic_group_work"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
+
+    <!-- app:hintEnabled="true"//设置是否可以使用hint属性，默认是true
+     app:hintAnimationEnabled="true"//设置是否可以使用动画，默认是true
+     app:hintTextAppearance="@style/hintAppearance"//设置hint的文本属性，改变hint文字的大小颜色等属性
+     app:counterEnabled="true"//设置是否可以开启计数器，默认是false
+     app:counterOverflowTextAppearance="@style/counterOverflowTextAppearance"//设置计算器越位后的文字颜色和大小
+     app:counterTextAppearance="@style/hintAppearance"//设置正常情况下的计数器文字颜色和大小
+     app:counterMaxLength="11"//设置计算器的最大字数限制
+     app:errorEnabled="true"//是否允许错误提示，默认是true
+     app:errorTextAppearance="@style/errorAppearance"//错误提示的文字大小和颜色
+     app:passwordToggleEnabled="true"//设置是否显示密码眼睛,默认是false
+     app:passwordToggleDrawable="@mipmap/ic_launcher"//自定义眼睛图标
+     app:passwordToggleTint="@color/colorAccent"//给眼睛着色
+     app:passwordToggleTintMode="multiply"//选择着色模式,与passwordToggleTint一起用-->
