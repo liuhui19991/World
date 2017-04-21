@@ -2,20 +2,21 @@ package com.liuhui.world.ui.activity;
 
 import android.content.Intent;
 import android.graphics.Paint;
-import android.os.Build;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.liuhui.world.R;
 import com.liuhui.world.base.BaseActivity;
 import com.liuhui.world.base.BasePresenter;
 import com.liuhui.world.utils.DialogUtil;
-import com.liuhui.world.utils.LogUtil;
 import com.liuhui.world.utils.SpUtil;
 
 import butterknife.BindView;
@@ -39,6 +40,9 @@ public class LoginActivity extends BaseActivity implements View.OnLayoutChangeLi
     Toolbar mToolbar;
     @BindView(R.id.root_layout)
     LinearLayout mLinearLayout;
+    @BindView(R.id.scroll)
+    ScrollView mScroll;
+    private int keyHeigh;
 
     @Override
     protected int getLayoutId() {
@@ -47,11 +51,7 @@ public class LoginActivity extends BaseActivity implements View.OnLayoutChangeLi
 
     @Override
     protected void initView() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//5.0及以上
-            //5.0以上可以直接设置 statusbar颜色
-            getWindow().setStatusBarColor(getResources().getColor(R.color.main_color));
-        }
-        mToolbar.setTitle("登录");
+        keyHeigh = getWindowManager().getDefaultDisplay().getHeight() / 3;
         mForgetPassword.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
         if (SpUtil.getBoolean("isSave", false)) {
             mRememberPassword.setChecked(true);
@@ -96,8 +96,35 @@ public class LoginActivity extends BaseActivity implements View.OnLayoutChangeLi
     }
 
     @Override
-    public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop,
-                               int oldRight, int oldBottom) {
-        LogUtil.e("懂");
+    public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+        Message message = Message.obtain();
+        if (oldBottom != 0 && bottom != 0 && (oldBottom - bottom > keyHeigh)) {
+            message.what = 1;
+        } else if (oldBottom != 0 && bottom != 0 && (bottom - oldBottom > keyHeigh)) {
+            message.what = 2;
+        }
+        mHandler.sendMessage(message);
+    }
+
+    Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 1:
+                    findViewById(R.id.logo).setVisibility(View.GONE);
+                    mScroll.fullScroll(ScrollView.FOCUS_DOWN);
+                    break;
+                case 2:
+                    findViewById(R.id.logo).setVisibility(View.VISIBLE);
+                    break;
+            }
+        }
+    };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mHandler.removeCallbacksAndMessages(null);
     }
 }

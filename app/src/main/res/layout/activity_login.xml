@@ -6,9 +6,37 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <include layout="@layout/appbar"/>
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/main_color"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        >
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            app:layout_collapseMode="pin"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="登录"
+                android:textColor="@color/white"
+                android:textSize="25sp"
+                />
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
 
     <ScrollView
+        android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -23,6 +51,8 @@
                 android:id="@+id/mobile_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
                 app:counterEnabled="true"
                 app:counterMaxLength="11"
                 app:counterOverflowTextAppearance="@style/TextAppearance.AppCompat"
@@ -41,6 +71,8 @@
                 android:id="@+id/password_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
                 app:counterEnabled="true"
                 app:passwordToggleEnabled="true">
 
@@ -59,7 +91,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
-                android:layout_marginLeft="20dp">
+                android:layout_marginLeft="35dp">
 
                 <CheckBox
                     android:id="@+id/remember_password"
@@ -74,9 +106,9 @@
 
             <Button
                 android:id="@+id/login_button"
-                android:layout_width="match_parent"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
+                android:layout_marginBottom="15dp"
                 android:foreground="?selectableItemBackground"
                 android:text="登录"/>
 
@@ -85,13 +117,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:layout_marginRight="18dp"
+                android:layout_marginRight="35dp"
                 android:text="忘记密码"
                 android:textColor="#000"/>
 
             <ImageView
+                android:id="@+id/logo"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="100dp"
                 android:src="@mipmap/ic_group_work"/>
         </LinearLayout>
     </ScrollView>
