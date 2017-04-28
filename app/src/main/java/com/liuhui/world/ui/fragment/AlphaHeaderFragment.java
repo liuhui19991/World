@@ -12,6 +12,7 @@ import com.liuhui.world.R;
 import com.liuhui.world.base.BaseFragment;
 import com.liuhui.world.base.BasePresenter;
 import com.liuhui.world.utils.ImageLoaderUtil;
+import com.liuhui.world.utils.StatusBarUtil;
 import com.liuhui.world.widget.topalph.HeaderViewPager;
 import com.liuhui.world.widget.topalph.HeaderViewPagerFragment;
 import com.liuhui.world.widget.topalph.RecyclerViewFragment;
@@ -75,6 +76,8 @@ public class AlphaHeaderFragment extends BaseFragment {
                 //动态改变标题栏的透明度,注意转化为浮点型
                 float alpha = 1.0f * currentY / maxY;
                 mAppBarLayout.setAlpha(alpha);
+                if (alpha > 0.0) StatusBarUtil.StatusBarLightMode(mContext, true);
+                else StatusBarUtil.StatusBarLightMode(mContext, false);
             }
         });
     }
