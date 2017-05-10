@@ -208,7 +208,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         @Override
         public void onFailed(int requestCode, List<String> deniedPermissions) {
-            if (requestCode == 200) {
+            if (requestCode == REQUEST_ALBUM) {
+                // 用户否勾选了不再提示并且拒绝了权限，那么提示用户到设置中授权。
+                if (AndPermission.hasAlwaysDeniedPermission(mContext, deniedPermissions)) {
+                    // 第一种：用默认的提示语。
+                    AndPermission.defaultSettingDialog(mContext, REQUEST_ALBUM).show();
+                }
+            }else if (requestCode == REQUEST_CAMERA){
+                if (AndPermission.hasAlwaysDeniedPermission(mContext, deniedPermissions)) {
+                    // 第一种：用默认的提示语。
+                    AndPermission.defaultSettingDialog(mContext, REQUEST_CAMERA).show();
+                }
             }
         }
     };
