@@ -5,33 +5,37 @@
         <item
             android:id="@+id/app_bar_search"
             android:actionViewClass="android.support.v7.widget.SearchView"
-            android:icon="@android:drawable/ic_menu_search"
-            android:title="Search"
+            android:checkable="true"
             android:checked="true"
-            android:checkable="true"/>
+            android:icon="@android:drawable/ic_menu_search"
+            android:title="Search"/>
         <!--必须要有checkable要不然不能实现单选-->
         <item
-            android:checkable="true"
             android:id="@+id/home"
+            android:checkable="true"
             android:title="首页"
             />
         <item
             android:id="@+id/discovery"
-            android:title="发现"
-            android:checkable="true"/>
+            android:checkable="true"
+            android:title="发现"/>
         <item
             android:id="@+id/follow"
-            android:title="关注"
-            android:checkable="true"/>
+            android:checkable="true"
+            android:title="关注"/>
 
     </group>
     <item android:title="divided">
         <menu>
-            <item android:title="切换主题"
-                  android:icon="@android:drawable/ic_menu_set_as"
-                  android:checkable="true"/>
-            <item android:title="设置"
-                  android:checkable="true"/>
+            <item
+                android:id="@+id/switch_theme"
+                android:checkable="true"
+                android:icon="@android:drawable/ic_menu_set_as"
+                android:title="切换主题"/>
+            <item
+                android:id="@+id/setting"
+                android:checkable="true"
+                android:title="设置"/>
         </menu>
     </item>
 </menu>

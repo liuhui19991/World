@@ -147,21 +147,22 @@ public class DetailZhiHuActivity extends BaseBackActivity<DetalZhiHuView, Detail
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_settings) {
-            mWebView.getSettings().setTextZoom(50);
-            return true;
-        } else if (item.getItemId() == R.id.action_two) {
-            mWebView.getSettings().setTextZoom(80);
-            return true;
-        } else if (item.getItemId() == R.id.action_three) {
-            mWebView.getSettings().setTextZoom(100);
-            return true;
-        } else if (item.getItemId() == R.id.action_four) {
-            mWebView.getSettings().setTextZoom(120);
-            return true;
-        } else if (item.getItemId() == R.id.action_five) {
-            mWebView.getSettings().setTextZoom(140);
-            return true;
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                mWebView.getSettings().setTextZoom(50);
+                return true;
+            case R.id.action_two:
+                mWebView.getSettings().setTextZoom(80);
+                return true;
+            case R.id.action_three:
+                mWebView.getSettings().setTextZoom(100);
+                return true;
+            case R.id.action_four:
+                mWebView.getSettings().setTextZoom(120);
+                return true;
+            case R.id.action_five:
+                mWebView.getSettings().setTextZoom(140);
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }

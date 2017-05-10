@@ -85,7 +85,7 @@ public class ImageLoaderUtil {
      * @param imageView 要展示的控件
      * @param resource  要展示的资源
      */
-    public static<T> void displayGif(ImageView imageView, T resource) {
+    public static <T> void displayGif(ImageView imageView, T resource) {
         if (imageView == null) {
             return;
         }
@@ -132,6 +132,8 @@ public class ImageLoaderUtil {
         }
         Glide.with(context)
                 .load(url)
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .transform(new GlideCircleTransfrom(context))
                 .into(imageView);
     }
