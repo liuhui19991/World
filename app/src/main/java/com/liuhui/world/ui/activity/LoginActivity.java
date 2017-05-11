@@ -5,6 +5,7 @@ import android.graphics.Paint;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -53,6 +54,7 @@ public class LoginActivity extends BaseActivity implements View.OnLayoutChangeLi
     protected void initView() {
         keyHeigh = getWindowManager().getDefaultDisplay().getHeight() / 3;
         mForgetPassword.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
+        mUsername.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);//设置这句话防止点击密码时候屏幕上下抖动
         if (SpUtil.getBoolean("isSave", false)) {
             mRememberPassword.setChecked(true);
             mUsername.setText("liuhui");

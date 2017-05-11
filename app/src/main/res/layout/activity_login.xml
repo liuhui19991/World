@@ -64,7 +64,8 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="@android:drawable/stat_notify_sdcard_usb"
                     android:drawablePadding="20dp"
-                    android:hint="请输入帐号"/>
+                    android:hint="请输入帐号"
+                    android:inputType="textPassword"/>
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
