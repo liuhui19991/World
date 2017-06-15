@@ -1,10 +1,12 @@
 package com.liuhui.world.ui.activity;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -21,6 +23,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.liuhui.world.AppCache;
 import com.liuhui.world.Constant;
 import com.liuhui.world.R;
 import com.liuhui.world.base.BaseActivity;
@@ -29,6 +32,7 @@ import com.liuhui.world.ui.fragment.MainFragment;
 import com.liuhui.world.utils.FileUtil;
 import com.liuhui.world.utils.ImageLoaderUtil;
 import com.liuhui.world.utils.LogUtil;
+import com.liuhui.world.utils.SpUtil;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.PermissionListener;
 import com.yanzhenjie.permission.Rationale;
@@ -114,7 +118,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     Toast.makeText(mContext, "关注", Toast.LENGTH_SHORT).show();
                     return true;
                 case R.id.switch_theme:
-                    Toast.makeText(mContext, "切换主题", Toast.LENGTH_SHORT).show();
+                    switchTheme();
                     return true;
                 case R.id.setting:
                     Toast.makeText(mContext, "设置", Toast.LENGTH_SHORT).show();
@@ -123,6 +127,22 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             return false;
         }
     };
+
+    private void switchTheme() {
+        final boolean on = !SpUtil.getBoolean(Constant.THEME_MODE, false);
+        final ProgressDialog dialog = new ProgressDialog(mContext);
+        dialog.setCancelable(false);
+        dialog.show();
+        AppCache.updateNightMode(on);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dialog.cancel();
+                MainActivity.this.recreate();
+                SpUtil.put(Constant.THEME_MODE, on);
+            }
+        }, 500);
+    }
 
     private void initListener() {
         mPhoto.setOnClickListener(this);
@@ -144,7 +164,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public void onBackPressed() {
         long currentTime = System.currentTimeMillis();
         if (currentTime - firstExitTime < 2000) {
-            System.exit(0);
+            AppCache.clearStack();
         } else {
             firstExitTime = currentTime;
             Toast.makeText(mContext, "再按一次退出程序", Toast.LENGTH_SHORT).show();
@@ -214,7 +234,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     // 第一种：用默认的提示语。
                     AndPermission.defaultSettingDialog(mContext, REQUEST_ALBUM).show();
                 }
-            }else if (requestCode == REQUEST_CAMERA){
+            } else if (requestCode == REQUEST_CAMERA) {
                 if (AndPermission.hasAlwaysDeniedPermission(mContext, deniedPermissions)) {
                     // 第一种：用默认的提示语。
                     AndPermission.defaultSettingDialog(mContext, REQUEST_CAMERA).show();

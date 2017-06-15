@@ -78,6 +78,7 @@ public class MainFragment extends BaseFragment {
                 .addItem(new BottomNavigationItem(R.mipmap.ic_gavel, "新闻").setActiveColorResource(R.color.main_color))//通过这里的set可以设置底部栏的颜色
                 .addItem(new BottomNavigationItem(R.mipmap.ic_grade, "工具").setActiveColorResource(R.color.main_color))
                 .setMode(BottomNavigationBar.MODE_FIXED)//0不带字,1带字
+                .setBarBackgroundColor(R.color.bottom_color)
                 .initialise();
     }
 

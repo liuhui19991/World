@@ -3,6 +3,7 @@ package com.liuhui.world;
 import android.app.Application;
 
 import com.liuhui.world.swipeback.ActivityStack;
+import com.liuhui.world.utils.SpUtil;
 import com.squareup.leakcanary.LeakCanary;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.yanzhenjie.nohttp.Logger;
@@ -26,6 +27,8 @@ public class BaseApplication extends Application {
         NoHttp.initialize(this);
         Logger.setDebug(true);
         CrashReport.initCrashReport(getApplicationContext(), "ca670f153f", true);
+        AppCache.init(this);
+        AppCache.updateNightMode(SpUtil.getBoolean(Constant.THEME_MODE, false));
     }
 
     public static BaseApplication getInstance() {

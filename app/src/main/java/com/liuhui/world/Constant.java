@@ -10,5 +10,6 @@ import java.io.File;
 
 public class Constant {
     public static String PHOTO_FILENAME = "worldphoto.jpg";//头像保存的文件
+    public static String THEME_MODE = "is_night";
     public static final String SAVE_URL = FileUtil.getRootPath() +  File.separator + "com.liuhui.world" + File.separator;
 }

@@ -23,8 +23,10 @@
 
         <TextView
             android:id="@+id/item_recommend_texttitle"
+            style="@style/AppTheme.Text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
             android:maxLines="2"
             android:text="标题"
             android:textSize="20sp"/>

@@ -8,6 +8,10 @@
         <item name="colorAccent">@color/main_color</item>
     </style>
 
+    <style name="AppTheme.Text" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
     <style name="CustomProgressDialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowFrame">@null</item>

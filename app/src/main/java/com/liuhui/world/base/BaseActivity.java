@@ -2,6 +2,7 @@ package com.liuhui.world.base;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -30,7 +31,7 @@ public abstract class BaseActivity<V, P extends BasePresenter<V>> extends AppCom
         mPresenter = initPresent();
         ButterKnife.bind(this);
         initView();
-//        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);// 设置竖屏
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);// 设置竖屏
     }
 
     protected void initWindow() {
