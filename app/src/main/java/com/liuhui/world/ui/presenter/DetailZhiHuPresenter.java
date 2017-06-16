@@ -17,7 +17,7 @@ public class DetailZhiHuPresenter extends BasePresenter<DetalZhiHuView> {
     @Override
     protected void requestMessage(String requesturl) {
         String url = Url.ZHIHU_NEWS + requesturl;
-        NetGo.getInstance().request(0, url, mContext, new ResponseListener() {
+        NetGo.getInstance().request(0, url, mActivity, new ResponseListener() {
             @Override
             public void success(int what, String response) {
                 mView.showData(GsonUtil.json2Bean(response, DetailZhiHuModel.class));

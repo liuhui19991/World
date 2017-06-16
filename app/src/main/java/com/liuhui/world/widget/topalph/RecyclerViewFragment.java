@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.fingdo.statelayout.StateLayout;
 import com.liuhui.world.R;
 import com.liuhui.world.adapter.RecommendAdapter;
 import com.liuhui.world.ui.activity.DetailZhiHuActivity;
@@ -30,6 +31,7 @@ public class RecyclerViewFragment extends HeaderViewPagerFragment implements Bas
     private RecyclerView mRecyclerView;
     private RecommendAdapter mRecommendAdapter;
     private int mCount = 0;
+    private StateLayout mStateLayout;
     private List<NewsListModel.StoriesBean> mData = new ArrayList<>();
 
     public static RecyclerViewFragment newInstance() {
@@ -40,6 +42,7 @@ public class RecyclerViewFragment extends HeaderViewPagerFragment implements Bas
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.recycler_view, container, false);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.homenews_recyclerview);
+        mStateLayout = (StateLayout) view.findViewById(R.id.state_layout);
         initAdapter();
         initListener();
         request(Url.ZHIHU_HISTORY + getDate(mCount), false);
@@ -52,9 +55,11 @@ public class RecyclerViewFragment extends HeaderViewPagerFragment implements Bas
      * @param url
      */
     private void request(String url, boolean hideWaiting) {
+        mStateLayout.showLoadingView();
         NetGo.getInstance().request(1, url, getActivity(), hideWaiting, new ResponseListener() {
             @Override
             public void success(int what, String response) {
+                mStateLayout.showContentView();
                 if (mCount++ == 5) mRecommendAdapter.loadMoreEnd();
                 else mRecommendAdapter.loadMoreComplete();
                 mData.addAll(GsonUtil.json2Bean(response, NewsListModel.class).getStories());
