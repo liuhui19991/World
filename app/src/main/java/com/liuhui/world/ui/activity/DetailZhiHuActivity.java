@@ -111,10 +111,9 @@ public class DetailZhiHuActivity extends BaseBackActivity<DetalZhiHuView, Detail
             //大于80的进度的时候,放慢速度加载,否则交给自己加载
             if (newProgress >= 80) {
                 //拦截webView自己的处理方式
-                if (isContinue) {
-                    return;
-                }
-                mProgressBar.setCurProgress(100, 1000, new WebViewHorizontalPb.OnEndListener() {
+                if (isContinue) return;
+
+                mProgressBar.setCurProgress(newProgress, 1000, new WebViewHorizontalPb.OnEndListener() {
                     @Override
                     public void onEnd() {
                         finishOperation();

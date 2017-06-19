@@ -107,6 +107,7 @@ public class WebViewHorizontalPb extends View {
     public void setCurProgress(int curProgress, long time, final OnEndListener listener) {
         if (mCurProgress == 100) {//重置mCurProgress为0
             mCurProgress = 0;
+            return;
         }
         //注意是从 mCurProgress->curProgress 来动画来实现
         ValueAnimator animator = ValueAnimator.ofInt(mCurProgress, curProgress);
