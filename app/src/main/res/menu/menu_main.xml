@@ -5,7 +5,7 @@
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="1"
-        app:showAsAction="never"/>
+        app:showAsAction="always"/>
     <item
         android:id="@+id/action_two"
         android:orderInCategory="100"
